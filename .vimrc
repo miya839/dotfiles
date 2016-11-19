@@ -86,7 +86,7 @@ endif
 
 
 "------------------------------------------------------
-
+"
 if &compatible
 	set nocompatible
 endif
@@ -95,11 +95,19 @@ set runtimepath+=~/.catch/dein/repos/github.com/Shougo/dein.vim
 
 call dein#begin(expand('~/.catch/dein'))
 
+if !isdirectory('~/.catch/dein')
+	call mkdir('~/.catch/dein', 'p')
+silent execute printf('git clone %s %s', 'https://github.com/Shougo/dein.vim', '~/.catch/dein')
+endif 
+
 call dein#add('Shougo/dein.vim')
 
 call dein#add('Shougo/neocomplete.vim')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
+
+call dein#add('Shougo/unite.vim')
+call dein#add('ujihisa/unite-colorscheme')
 
 call dein#add('tomasr/molokai')
 call dein#add('bronson/vim-trailing-whitespace')
@@ -110,6 +118,7 @@ call dein#add('scrooloose/syntastic')
 call dein#end()
 
 filetype plugin indent on
+syntax enable
 
 if dein#check_install()
 	call dein#install()
@@ -128,3 +137,7 @@ let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': ['javascript'],
                            \ 'passive_filetypes': [] }
+colorscheme molokai
+set t_Co=256
+
+syntax on
